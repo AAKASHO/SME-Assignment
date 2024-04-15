@@ -210,8 +210,8 @@ namespace Player
 			moveRight();
 
 		if (event_service->pressedLeftMouseButton()) {
-			fireBullet();
-			updateBullets(0.2);
+			//fireBullet();
+			enableShield();
 		}
 
 		if (event_service->pressedRightMouseButton())
@@ -281,30 +281,20 @@ namespace Player
 			SimpleBullet bullet;
 			bullet.loadTexture(Config::laser_bullet_logo_texture_path); // Load the texture
 			bullet.activate(player_model->getPlayerPosition());
+
+			UI::UIElement::ImageView bulletView;
+			bulletView.initialize(Config::laser_bullet_logo_texture_path, bullet_width, bullet_height, bullet.getPosition());
+
+			// Add the bullet's ImageView to the vector of bullet views
+			bulletViews.push_back(bulletView);
+
 			bullets.push_back(bullet);
+
 
 			fireTimer = fireCooldown; // Reset the cooldown timer
 			std::cout << "Firing bullet!" << std::endl;
-			while (window.isOpen()) {
-				// Handle events, update game state, etc.
 
-				window.clear(); // Clear the window before rendering
-
-				// Update bullet positions
-				for (auto& bullet : bullets) {
-					bullet.update(deltaTime); // Update bullet position
-				}
-
-				// Render other game objects, such as player, enemies, etc.
-
-				// Render the bullets
-				for (const auto& bullet : bullets) {
-					bulletView.setPosition(bullet.getPosition()); // Set bullet position
-					bulletView.render(window); // Render bullet
-				}
-
-				window.display(); // Display the rendered frame
-			}
+			
 		}
 	}
 
