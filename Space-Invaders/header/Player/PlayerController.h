@@ -4,12 +4,22 @@
 #include "../../header/Powerup/PowerupConfig.h"
 #include "../../header/Player/PlayerModel.h"
 #include "../../header/Player/PlayerView.h"
+#include "../../header/SimpleBullet/SimpleBullet.h"
 
+
+namespace Player {
+    class PlayerView;
+    class PlayerModel;
+}
 namespace Player
 {
     class PlayerController : public Collision::ICollider
     {
     private:
+        std::vector<SimpleBullet> bullets; // Container to store bullets
+        float fireCooldown; // Cooldown between consecutive shots
+        float fireTimer;
+
         float elapsed_shield_duration;
         float elapsed_rapid_fire_duration;
         float elapsed_tripple_laser_duration;
@@ -17,8 +27,8 @@ namespace Player
         float elapsed_fire_duration;
         float elapsed_freez_duration;
 
-        PlayerView* player_view;
-        PlayerModel* player_model;
+        PlayerView*  player_view; 
+        PlayerModel*  player_model;
 
         void processPlayerInput();
         void moveLeft();
@@ -44,7 +54,13 @@ namespace Player
         void update();
         void render();
 
+        void updateBullets(float deltaTime);
+
+        void renderBullets(sf::RenderWindow& window);
+
         void reset();
+
+        void fireBullet();
 
         void decreasePlayerLive();
         inline void increaseScore(int val) { PlayerModel::player_score += val; }

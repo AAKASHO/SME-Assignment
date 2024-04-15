@@ -165,6 +165,7 @@
     <ClCompile Include="source\Powerup\PowerupModel.cpp" />
     <ClCompile Include="source\Powerup\PowerupService.cpp" />
     <ClCompile Include="source\Powerup\PowerupView.cpp" />
+    <ClCompile Include="source\SimpleBullet\SimpleBullet.cpp" />
     <ClCompile Include="source\Sound\SoundService.cpp" />
     <ClCompile Include="source\Time\TimeService.cpp" />
     <ClCompile Include="source\Main\GameService.cpp" />
